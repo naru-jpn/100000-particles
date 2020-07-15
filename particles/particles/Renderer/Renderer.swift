@@ -20,6 +20,9 @@ final class Renderer: NSObject, MTKViewDelegate {
     /// Render with triple buffering. (https://developer.apple.com/library/archive/documentation/3DDrawing/Conceptual/MTLBestPracticesGuide/TripleBuffering.html)
     private static let maxInFlightRenderingBuffers: Int = 3
 
+    /// Max length of buffers for simulated particles.
+    private static let maxNumberOfParticles: Int = 100_000
+
     /// Device
     let device: MTLDevice
 
@@ -34,6 +37,9 @@ final class Renderer: NSObject, MTKViewDelegate {
 
     /// Number of particles.
     private var numberOfParticles: Int = 0
+
+    /// Simulated particle buffers.
+    let particleBuffers: [MTLBuffer]
 
     /// Texture descriptor for renderingTextures.
     private let renderingTextureDescriptor: MTLTextureDescriptor
@@ -54,9 +60,22 @@ final class Renderer: NSObject, MTKViewDelegate {
         }
         self.commandQueue = commandQueue
 
-        // --- Buffers
+        // Buffers
 
-        // --- Textures
+        do {
+            let length: Int = MemoryLayout<particle_t>.size * Renderer.maxNumberOfParticles
+            var buffers: [MTLBuffer] = []
+            for i in 0..<Renderer.maxInFlightRenderingBuffers {
+                guard let buffer = device.makeBuffer(length: length, options: .storageModeShared) else {
+                    fatalError("Failed make particle buffer(\(i)).")
+                }
+                buffer.label = "simulated_particle_buffer_\(i + 1)"
+                buffers.append(buffer)
+            }
+            self.particleBuffers = buffers
+        }
+
+        // Textures
 
         renderingTextureDescriptor = MTLTextureDescriptor()
         renderingTextureDescriptor.textureType = .type2D
