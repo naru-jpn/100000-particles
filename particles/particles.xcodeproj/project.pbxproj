@@ -16,6 +16,7 @@
 		43A9877224BF663200173622 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877124BF663200173622 /* MetalKit.framework */; };
 		43A9877424BF666600173622 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877324BF666600173622 /* Metal.framework */; };
 		43A9877724BF6A2900173622 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9877624BF6A2900173622 /* Renderer.swift */; };
+		43A9877B24BF7D3500173622 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 43A9877A24BF7D3500173622 /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		43A9877324BF666600173622 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		43A9877624BF6A2900173622 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		43A9877824BF78CD00173622 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		43A9877A24BF7D3500173622 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				43A9877524BF69CC00173622 /* Renderer */,
 				43A9876024BF62DE00173622 /* MetalViewController.swift */,
 				43A9876224BF62DE00173622 /* Main.storyboard */,
+				43A9877A24BF7D3500173622 /* Shaders.metal */,
 				43A9877824BF78CD00173622 /* ShaderTypes.h */,
 				43A9876524BF62E000173622 /* Assets.xcassets */,
 				43A9876724BF62E000173622 /* LaunchScreen.storyboard */,
@@ -169,6 +172,7 @@
 			files = (
 				43A9877724BF6A2900173622 /* Renderer.swift in Sources */,
 				43A9876124BF62DE00173622 /* MetalViewController.swift in Sources */,
+				43A9877B24BF7D3500173622 /* Shaders.metal in Sources */,
 				43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */,
 				43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */,
 			);
