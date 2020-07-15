@@ -11,6 +11,7 @@ import MetalKit
 import UIKit
 
 final class MetalViewController: UIViewController {
+    private var renderer: Renderer?
 
     private var metalView: MTKView {
         view as! MTKView
@@ -25,6 +26,11 @@ final class MetalViewController: UIViewController {
             fatalError("Failed to get device from MTLCreateSystemDefaultDevice().")
         }
         metalView.device = device
+
+        renderer = Renderer(device: device, view: metalView)
+        renderer?.mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)
+
+        metalView.delegate = renderer
 
         // Prevent executing metal commands when application is in background.
         // Reference: https://developer.apple.com/documentation/metal/preparing_your_metal_app_to_run_in_the_background

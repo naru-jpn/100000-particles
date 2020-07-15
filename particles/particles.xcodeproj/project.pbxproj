@@ -15,6 +15,7 @@
 		43A9876924BF62E000173622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A9876724BF62E000173622 /* LaunchScreen.storyboard */; };
 		43A9877224BF663200173622 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877124BF663200173622 /* MetalKit.framework */; };
 		43A9877424BF666600173622 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877324BF666600173622 /* Metal.framework */; };
+		43A9877724BF6A2900173622 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9877624BF6A2900173622 /* Renderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		43A9876A24BF62E000173622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43A9877124BF663200173622 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		43A9877324BF666600173622 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		43A9877624BF6A2900173622 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		43A9877824BF78CD00173622 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +68,10 @@
 			children = (
 				43A9875C24BF62DE00173622 /* AppDelegate.swift */,
 				43A9875E24BF62DE00173622 /* SceneDelegate.swift */,
+				43A9877524BF69CC00173622 /* Renderer */,
 				43A9876024BF62DE00173622 /* MetalViewController.swift */,
 				43A9876224BF62DE00173622 /* Main.storyboard */,
+				43A9877824BF78CD00173622 /* ShaderTypes.h */,
 				43A9876524BF62E000173622 /* Assets.xcassets */,
 				43A9876724BF62E000173622 /* LaunchScreen.storyboard */,
 				43A9876A24BF62E000173622 /* Info.plist */,
@@ -81,6 +86,14 @@
 				43A9877124BF663200173622 /* MetalKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43A9877524BF69CC00173622 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				43A9877624BF6A2900173622 /* Renderer.swift */,
+			);
+			path = Renderer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A9877724BF6A2900173622 /* Renderer.swift in Sources */,
 				43A9876124BF62DE00173622 /* MetalViewController.swift in Sources */,
 				43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */,
 				43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */,
@@ -238,6 +252,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = particles/ShaderTypes.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -291,6 +306,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = particles/ShaderTypes.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
