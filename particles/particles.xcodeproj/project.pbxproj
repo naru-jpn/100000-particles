@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9875C24BF62DE00173622 /* AppDelegate.swift */; };
 		43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9875E24BF62DE00173622 /* SceneDelegate.swift */; };
-		43A9876124BF62DE00173622 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9876024BF62DE00173622 /* MainViewController.swift */; };
+		43A9876124BF62DE00173622 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9876024BF62DE00173622 /* MetalViewController.swift */; };
 		43A9876424BF62DE00173622 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A9876224BF62DE00173622 /* Main.storyboard */; };
 		43A9876624BF62E000173622 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43A9876524BF62E000173622 /* Assets.xcassets */; };
 		43A9876924BF62E000173622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A9876724BF62E000173622 /* LaunchScreen.storyboard */; };
+		43A9877224BF663200173622 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877124BF663200173622 /* MetalKit.framework */; };
+		43A9877424BF666600173622 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A9877324BF666600173622 /* Metal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		43A9875924BF62DE00173622 /* particles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = particles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A9875C24BF62DE00173622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43A9875E24BF62DE00173622 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		43A9876024BF62DE00173622 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		43A9876024BF62DE00173622 /* MetalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		43A9876324BF62DE00173622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43A9876524BF62E000173622 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43A9876824BF62E000173622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43A9876A24BF62E000173622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43A9877124BF663200173622 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		43A9877324BF666600173622 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A9877424BF666600173622 /* Metal.framework in Frameworks */,
+				43A9877224BF663200173622 /* MetalKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +48,7 @@
 			children = (
 				43A9875B24BF62DE00173622 /* particles */,
 				43A9875A24BF62DE00173622 /* Products */,
+				43A9877024BF663200173622 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +65,22 @@
 			children = (
 				43A9875C24BF62DE00173622 /* AppDelegate.swift */,
 				43A9875E24BF62DE00173622 /* SceneDelegate.swift */,
-				43A9876024BF62DE00173622 /* MainViewController.swift */,
+				43A9876024BF62DE00173622 /* MetalViewController.swift */,
 				43A9876224BF62DE00173622 /* Main.storyboard */,
 				43A9876524BF62E000173622 /* Assets.xcassets */,
 				43A9876724BF62E000173622 /* LaunchScreen.storyboard */,
 				43A9876A24BF62E000173622 /* Info.plist */,
 			);
 			path = particles;
+			sourceTree = "<group>";
+		};
+		43A9877024BF663200173622 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				43A9877324BF666600173622 /* Metal.framework */,
+				43A9877124BF663200173622 /* MetalKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43A9876124BF62DE00173622 /* MainViewController.swift in Sources */,
+				43A9876124BF62DE00173622 /* MetalViewController.swift in Sources */,
 				43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */,
 				43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */,
 			);
