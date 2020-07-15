@@ -27,7 +27,7 @@ simulate(device particle_t* currentParticles [[ buffer(0) ]],
     float phase = currentParticles[gid].phase;
     float end = (vector_float2(*viewportSize) / 2.0).y;
 
-    position.x +=  sin(phase);
+    position.x += sin(phase);
     if (position.y < -end) {
         position.y = end;
     }

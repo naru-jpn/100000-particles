@@ -38,17 +38,21 @@ final class Renderer: NSObject, MTKViewDelegate {
     /// Number of particles.
     private var numberOfParticles: Int = 0
 
+    /// Pipeline state for simulation.
+    private let simulatePipelineState: MTLComputePipelineState
+
+    /// Pipeline state for rendering.
+    private let renderPipelineState: MTLRenderPipelineState
+
     /// Simulated particle buffers.
     let particleBuffers: [MTLBuffer]
 
-    /// Texture descriptor for renderingTextures.
-    private let renderingTextureDescriptor: MTLTextureDescriptor
-
-    /// Texture drawn particles.
-    private var renderingTextures: [MTLTexture] = []
-
     /// Index to control triple buffering.
     private var currentBufferIndex: Int = 0
+
+    private var simulatedBufferIndex: Int {
+        (currentBufferIndex + 1) % Renderer.maxInFlightRenderingBuffers
+    }
 
     /// Viewport size to render particles.
     private var viewportSize: vector_uint2 = .zero
@@ -56,12 +60,61 @@ final class Renderer: NSObject, MTKViewDelegate {
     init(device: MTLDevice, view: MTKView) {
         self.device = device
         guard let commandQueue = device.makeCommandQueue() else {
-            fatalError("Failed to create command queue with device.makeCommandQueue().")
+            fatalError("Failed to create command queue by device.makeCommandQueue().")
         }
         self.commandQueue = commandQueue
 
-        // Buffers
+        guard let library = device.makeDefaultLibrary() else {
+            fatalError("Failed to make library by device.makeDefaultLibrary().")
+        }
 
+        // --- Pipelines
+
+        // simulatePipelineState
+        do {
+            guard let function = library.makeFunction(name: "simulate") else {
+                fatalError("Failed to make function simulate.")
+            }
+            do {
+                simulatePipelineState = try device.makeComputePipelineState(function: function)
+            } catch {
+                fatalError("Failed to make simutate pipeline state with error: \(error)")
+            }
+        }
+
+        // renderPipelineState
+        do {
+            guard let vertexFunction = library.makeFunction(name: "particle_vertex") else {
+                fatalError("Failed to make function particle_vertex.")
+            }
+            guard let fragmentFunction = library.makeFunction(name: "particle_fragment") else {
+                fatalError("Failed to make function particle_fragment.")
+            }
+
+            let renderPipelineStateDescriptor = MTLRenderPipelineDescriptor()
+            renderPipelineStateDescriptor.label = "draw_particles"
+            renderPipelineStateDescriptor.sampleCount = view.sampleCount
+            renderPipelineStateDescriptor.vertexFunction = vertexFunction
+            renderPipelineStateDescriptor.fragmentFunction = fragmentFunction
+            renderPipelineStateDescriptor.colorAttachments[0].pixelFormat = view.colorPixelFormat
+            renderPipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
+            renderPipelineStateDescriptor.colorAttachments[0].rgbBlendOperation = .add
+            renderPipelineStateDescriptor.colorAttachments[0].alphaBlendOperation = .add
+            renderPipelineStateDescriptor.colorAttachments[0].sourceRGBBlendFactor = .sourceAlpha
+            renderPipelineStateDescriptor.colorAttachments[0].sourceAlphaBlendFactor = .sourceAlpha
+            renderPipelineStateDescriptor.colorAttachments[0].destinationRGBBlendFactor = .oneMinusSourceAlpha
+            renderPipelineStateDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .oneMinusSourceAlpha
+
+            do {
+                renderPipelineState = try device.makeRenderPipelineState(descriptor: renderPipelineStateDescriptor)
+            } catch {
+                fatalError("Failed to make render pipeline state with error: \(error)")
+            }
+        }
+
+        // --- Buffers
+
+        // particleBuffers
         do {
             let length: Int = MemoryLayout<particle_t>.size * Renderer.maxNumberOfParticles
             var buffers: [MTLBuffer] = []
@@ -74,19 +127,53 @@ final class Renderer: NSObject, MTKViewDelegate {
             }
             self.particleBuffers = buffers
         }
-
-        // Textures
-
-        renderingTextureDescriptor = MTLTextureDescriptor()
-        renderingTextureDescriptor.textureType = .type2D
-        renderingTextureDescriptor.pixelFormat = view.colorPixelFormat
-        renderingTextureDescriptor.usage = [.renderTarget, .shaderRead]
     }
 
     // MARK: - MTKViewDelegate
 
+    private func simulate(in view: MTKView, commandBuffer: MTLCommandBuffer) {
+        guard let computeEncoder = commandBuffer.makeComputeCommandEncoder(), numberOfParticles > 0 else {
+            return
+        }
+        computeEncoder.label = "Simulation"
+
+        let dispatchThreads = MTLSize(width: numberOfParticles, height: 1, depth: 1)
+        let threadsPerThreadgroup = MTLSize(width: simulatePipelineState.threadExecutionWidth, height: 1, depth: 1)
+
+        computeEncoder.setComputePipelineState(simulatePipelineState)
+        computeEncoder.setBuffer(particleBuffers[currentBufferIndex], offset: 0, index: 0)
+        computeEncoder.setBuffer(particleBuffers[simulatedBufferIndex], offset: 0, index: 1)
+        computeEncoder.setBytes(&viewportSize, length: MemoryLayout<vector_float2>.size, index: 2)
+        computeEncoder.setThreadgroupMemoryLength(simulatePipelineState.threadExecutionWidth * MemoryLayout<particle_t>.size, index: 0)
+        computeEncoder.dispatchThreads(dispatchThreads, threadsPerThreadgroup: threadsPerThreadgroup)
+        computeEncoder.endEncoding()
+    }
+
+    private func render(in view: MTKView, commandBuffer: MTLCommandBuffer) {
+        let renderPassDescriptor = MTLRenderPassDescriptor()
+        renderPassDescriptor.colorAttachments[0].texture = view.currentDrawable?.texture
+        renderPassDescriptor.colorAttachments[0].loadAction = .clear
+        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 1, 1, 1)
+        renderPassDescriptor.colorAttachments[0].storeAction = .store
+
+        guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
+            return
+        }
+        renderEncoder.label = "Particle Rendering"
+
+        renderEncoder.setRenderPipelineState(renderPipelineState)
+        renderEncoder.setVertexBuffer(particleBuffers[simulatedBufferIndex], offset: 0, index: 0)
+        renderEncoder.setVertexBytes(&viewportSize, length: MemoryLayout<vector_float2>.size, index: 1)
+        renderEncoder.drawPrimitives(type: .point, vertexStart: 0, vertexCount: numberOfParticles)
+        renderEncoder.endEncoding()
+
+        if let drawable = view.currentDrawable {
+            commandBuffer.present(drawable)
+        }
+    }
+
     func draw(in view: MTKView) {
-        guard renderingTextures.count == Renderer.maxInFlightRenderingBuffers else {
+        guard numberOfParticles > 0 else {
             return
         }
 
@@ -101,7 +188,7 @@ final class Renderer: NSObject, MTKViewDelegate {
             guard let commandBuffer = commandQueue.makeCommandBuffer() else {
                 fatalError("Failed to make command buffer.")
             }
-            // TODO: simulation
+            simulate(in: view, commandBuffer: commandBuffer)
             commandBuffer.addCompletedHandler { _ in
                 simulateSemaphore.signal()
             }
@@ -113,7 +200,7 @@ final class Renderer: NSObject, MTKViewDelegate {
             guard let commandBuffer = commandQueue.makeCommandBuffer() else {
                 fatalError("Failed to make command buffer.")
             }
-            // TODO: Rendering
+            render(in: view, commandBuffer: commandBuffer)
             commandBuffer.addCompletedHandler { _ in
                 semaphore.signal()
             }
@@ -126,19 +213,5 @@ final class Renderer: NSObject, MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         viewportSize.x = uint(size.width)
         viewportSize.y = uint(size.height)
-
-        // Resize rendering textures
-        renderingTextureDescriptor.width = Int(viewportSize.x)
-        renderingTextureDescriptor.height = Int(viewportSize.y)
-        do {
-            var textures: [MTLTexture] = []
-            (0..<Renderer.maxInFlightRenderingBuffers).forEach { _ in
-                guard let texture = device.makeTexture(descriptor: renderingTextureDescriptor) else {
-                    fatalError("Failed to make rendering texture.")
-                }
-                textures.append(texture)
-            }
-            renderingTextures = textures
-        }
     }
 }
