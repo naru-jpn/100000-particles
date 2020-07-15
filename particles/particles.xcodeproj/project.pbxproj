@@ -70,7 +70,7 @@
 			children = (
 				43A9875C24BF62DE00173622 /* AppDelegate.swift */,
 				43A9875E24BF62DE00173622 /* SceneDelegate.swift */,
-				43A9877524BF69CC00173622 /* Renderer */,
+				43A9877624BF6A2900173622 /* Renderer.swift */,
 				43A9876024BF62DE00173622 /* MetalViewController.swift */,
 				43A9876224BF62DE00173622 /* Main.storyboard */,
 				43A9877A24BF7D3500173622 /* Shaders.metal */,
@@ -89,14 +89,6 @@
 				43A9877124BF663200173622 /* MetalKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		43A9877524BF69CC00173622 /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				43A9877624BF6A2900173622 /* Renderer.swift */,
-			);
-			path = Renderer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
