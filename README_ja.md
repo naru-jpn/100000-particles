@@ -6,7 +6,7 @@
 
 ## スクリーンショット
 
-1,000 particles | 10,000 particles | 100,000 particles 
+1千パーティクル | 1万パーティクル | 10万パーティクル 
 :---: | :---: | :---:
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87854771-20e99600-c94f-11ea-9789-4cac4ec619f8.png" width="200"></kbd> | <kbd><img src="https://user-images.githubusercontent.com/5572875/87854775-2b0b9480-c94f-11ea-83b9-c0b6eed82ea3.png" width="200"></kbd> | <kbd><img src="https://user-images.githubusercontent.com/5572875/87854790-365ec000-c94f-11ea-9cdd-c4f620963881.png" width="200"></kbd>
 
