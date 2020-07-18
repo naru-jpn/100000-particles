@@ -1,3 +1,5 @@
+[日本語](./README_ja.md)
+
 # 100,000 Particles
 
 Sample implementation for one hundred thousand particles simulated and drawn by Metal.
