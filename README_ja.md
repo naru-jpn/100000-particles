@@ -4,6 +4,10 @@
 
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87853518-a9fbcf80-c945-11ea-89de-f3de0f126b7f.gif" width="200"></kbd>
 
+## パフォーマンス - 10万個のパーティクルの描画
+
+<kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
+
 ## スクリーンショット
 
 1千パーティクル | 1万パーティクル | 10万パーティクル 
