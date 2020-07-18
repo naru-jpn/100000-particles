@@ -1,6 +1,6 @@
 # 100,000 Particles
 
-10万個のパーティクルを Metal を使って計算・描画をするサンプル実装です.
+10万個のパーティクルを Metal を使って計算・描画をするサンプル実装.
 
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87853518-a9fbcf80-c945-11ea-89de-f3de0f126b7f.gif" width="200"></kbd>
 
