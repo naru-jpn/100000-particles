@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		432C34D424C297F800705D5E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C34D324C297F800705D5E /* SettingsViewController.swift */; };
+		432C34D624C2C88000705D5E /* particle_t+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C34D524C2C88000705D5E /* particle_t+Extension.swift */; };
 		43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9875C24BF62DE00173622 /* AppDelegate.swift */; };
 		43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9875E24BF62DE00173622 /* SceneDelegate.swift */; };
 		43A9876124BF62DE00173622 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9876024BF62DE00173622 /* MetalViewController.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		432C34D324C297F800705D5E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		432C34D524C2C88000705D5E /* particle_t+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "particle_t+Extension.swift"; sourceTree = "<group>"; };
 		43A9875924BF62DE00173622 /* particles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = particles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A9875C24BF62DE00173622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43A9875E24BF62DE00173622 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,9 +76,11 @@
 				43A9875E24BF62DE00173622 /* SceneDelegate.swift */,
 				43A9877624BF6A2900173622 /* Renderer.swift */,
 				43A9876024BF62DE00173622 /* MetalViewController.swift */,
+				432C34D324C297F800705D5E /* SettingsViewController.swift */,
 				43A9876224BF62DE00173622 /* Main.storyboard */,
 				43A9877A24BF7D3500173622 /* Shaders.metal */,
 				43A9877824BF78CD00173622 /* ShaderTypes.h */,
+				432C34D524C2C88000705D5E /* particle_t+Extension.swift */,
 				43A9876524BF62E000173622 /* Assets.xcassets */,
 				43A9876724BF62E000173622 /* LaunchScreen.storyboard */,
 				43A9876A24BF62E000173622 /* Info.plist */,
@@ -167,6 +173,8 @@
 				43A9877B24BF7D3500173622 /* Shaders.metal in Sources */,
 				43A9875D24BF62DE00173622 /* AppDelegate.swift in Sources */,
 				43A9875F24BF62DE00173622 /* SceneDelegate.swift in Sources */,
+				432C34D624C2C88000705D5E /* particle_t+Extension.swift in Sources */,
+				432C34D424C297F800705D5E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

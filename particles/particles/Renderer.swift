@@ -9,6 +9,10 @@
 import Foundation
 import MetalKit
 
+protocol RendererDelegate: class {
+    func rendererDidCompleteConfigure(_ renderer: Renderer)
+}
+
 final class Renderer: NSObject, MTKViewDelegate {
     /// Thread control factor for simulation.
     ///
@@ -56,6 +60,11 @@ final class Renderer: NSObject, MTKViewDelegate {
 
     /// Viewport size to render particles.
     private var viewportSize: vector_uint2 = .zero
+
+    /// Background color of MTKView
+    private var viewClearColor: MTLClearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+
+    weak var delegate: RendererDelegate?
 
     init(device: MTLDevice, view: MTKView) {
         self.device = device
@@ -129,6 +138,19 @@ final class Renderer: NSObject, MTKViewDelegate {
         }
     }
 
+    func configure(setting: Setting) {
+        currentBufferIndex = 0
+        numberOfParticles = setting.number
+        let particleBuffer = particleBuffers[0].contents().bindMemory(to: particle_t.self, capacity: numberOfParticles)
+        for index in 0..<numberOfParticles {
+            particleBuffer[index] = particle_t.create(with: setting, viewportSize: viewportSize)
+        }
+        viewClearColor = setting.coloring == .colorful ? MTLClearColor(red: 1, green: 1, blue: 1, alpha: 1) : MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
+        DispatchQueue.main.async {
+            self.delegate?.rendererDidCompleteConfigure(self)
+        }
+    }
+
     // MARK: - MTKViewDelegate
 
     private func simulate(in view: MTKView, commandBuffer: MTLCommandBuffer) {
@@ -153,7 +175,7 @@ final class Renderer: NSObject, MTKViewDelegate {
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = view.currentDrawable?.texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
-        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 1, 1, 1)
+        renderPassDescriptor.colorAttachments[0].clearColor = viewClearColor
         renderPassDescriptor.colorAttachments[0].storeAction = .store
 
         guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {

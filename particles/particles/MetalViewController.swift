@@ -10,7 +10,16 @@ import Combine
 import MetalKit
 import UIKit
 
-final class MetalViewController: UIViewController {
+final class MetalViewController: UIViewController, RendererDelegate, SettingsViewControllerDelegate {
+    @IBOutlet private var settingButton: UIButton! {
+        didSet {
+            settingButton.titleLabel?.layer.shadowOffset = .zero
+            settingButton.titleLabel?.layer.shadowRadius = 1.2
+            settingButton.titleLabel?.layer.shadowOpacity = 0.5
+            settingButton.titleLabel?.layer.shadowColor = UIColor.black.cgColor
+        }
+    }
+
     private var renderer: Renderer?
 
     private var metalView: MTKView {
@@ -25,10 +34,12 @@ final class MetalViewController: UIViewController {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("Failed to get device from MTLCreateSystemDefaultDevice().")
         }
+        metalView.isPaused = true
         metalView.device = device
 
         renderer = Renderer(device: device, view: metalView)
         renderer?.mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)
+        renderer?.delegate = self
 
         metalView.delegate = renderer
 
@@ -41,8 +52,39 @@ final class MetalViewController: UIViewController {
             .store(in: &cancellables)
         NotificationCenter.Publisher(center: .default, name: UIApplication.didBecomeActiveNotification)
             .sink { [weak self] _ in
-                self?.metalView.isPaused = false
+                self?.metalView.isPaused = self?.presentedViewController != nil
             }
             .store(in: &cancellables)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentSettings()
+    }
+
+    @IBAction private func didTapSettingButton(_ sender: UIButton) {
+        presentSettings()
+    }
+
+    private func presentSettings() {
+        metalView.isPaused = true
+        let viewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
+        viewController.delegate = self
+        present(viewController, animated: true)
+    }
+
+    // MARK: RendererDelegate
+
+    func rendererDidCompleteConfigure(_ renderer: Renderer) {
+        metalView.isPaused = false
+    }
+
+    // MARK: SettingsViewControllerDelegate
+
+    func settingsViewControllerDidComplete(_ viewController: SettingsViewController, setting: Setting) {
+        viewController.dismiss(animated: true)
+        DispatchQueue.global().async {
+            self.renderer?.configure(setting: setting)
+        }
     }
 }

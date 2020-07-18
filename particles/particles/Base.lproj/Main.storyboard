@@ -14,13 +14,158 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MTKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWb-BG-xDQ">
+                                <rect key="frame" x="344" y="44" width="54" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Setting">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSettingButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yBY-2Q-ev7"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eWb-BG-xDQ" secondAttribute="trailing" constant="16" id="ZAS-3L-yUQ"/>
+                            <constraint firstItem="eWb-BG-xDQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wGA-v5-FCS"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="settingButton" destination="eWb-BG-xDQ" id="jIU-yQ-OSC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="138"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="pOm-db-uUC">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="w0w-h7-yV3" customClass="SettingsViewController" customModule="particles" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ooN-5Z-522">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="prj-WN-2gg">
+                                <rect key="frame" x="47" y="324.5" width="320" height="257"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jX6-jO-s9x">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="leQ-pd-Cug">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Coloring" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShW-Hv-qfH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CgM-Zg-cVo">
+                                                        <rect key="frame" x="0.0" y="21.5" width="320" height="60"/>
+                                                        <subviews>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uaO-Dk-xOq">
+                                                                <rect key="frame" x="59.5" y="14.5" width="201" height="32"/>
+                                                                <segments>
+                                                                    <segment title="colorful"/>
+                                                                    <segment title="monochrome"/>
+                                                                </segments>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="uaO-Dk-xOq" firstAttribute="centerY" secondItem="CgM-Zg-cVo" secondAttribute="centerY" id="AkP-j6-uoh"/>
+                                                            <constraint firstItem="uaO-Dk-xOq" firstAttribute="centerX" secondItem="CgM-Zg-cVo" secondAttribute="centerX" id="GgZ-F1-jSQ"/>
+                                                            <constraint firstAttribute="height" constant="60" id="K0W-ql-rSr"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="leQ-pd-Cug" firstAttribute="leading" secondItem="jX6-jO-s9x" secondAttribute="leading" id="5Yz-hs-B5Y"/>
+                                            <constraint firstItem="leQ-pd-Cug" firstAttribute="top" secondItem="jX6-jO-s9x" secondAttribute="top" id="7cG-9U-4wF"/>
+                                            <constraint firstAttribute="bottom" secondItem="leQ-pd-Cug" secondAttribute="bottom" id="hGk-yi-eJG"/>
+                                            <constraint firstAttribute="trailing" secondItem="leQ-pd-Cug" secondAttribute="trailing" id="vSM-uY-6tP"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZb-la-qmK">
+                                        <rect key="frame" x="0.0" y="113.5" width="320" height="81.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Uhb-8l-79V">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Number of Particles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7r-TZ-4yY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BVr-Ek-hta">
+                                                        <rect key="frame" x="0.0" y="21.5" width="320" height="60"/>
+                                                        <subviews>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8sz-5K-i89">
+                                                                <rect key="frame" x="20.5" y="14.5" width="279" height="32"/>
+                                                                <segments>
+                                                                    <segment title="100"/>
+                                                                    <segment title="1,000"/>
+                                                                    <segment title="10,000"/>
+                                                                    <segment title="100,000"/>
+                                                                </segments>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="8sz-5K-i89" firstAttribute="centerY" secondItem="BVr-Ek-hta" secondAttribute="centerY" id="XWJ-7G-7SI"/>
+                                                            <constraint firstItem="8sz-5K-i89" firstAttribute="centerX" secondItem="BVr-Ek-hta" secondAttribute="centerX" id="uvV-hu-7dA"/>
+                                                            <constraint firstAttribute="height" constant="60" id="yfv-TO-Pqj"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Uhb-8l-79V" secondAttribute="trailing" id="8vg-q3-MfI"/>
+                                            <constraint firstItem="Uhb-8l-79V" firstAttribute="leading" secondItem="rZb-la-qmK" secondAttribute="leading" id="GlC-o7-KyO"/>
+                                            <constraint firstAttribute="bottom" secondItem="Uhb-8l-79V" secondAttribute="bottom" id="L1P-CD-vew"/>
+                                            <constraint firstItem="Uhb-8l-79V" firstAttribute="top" secondItem="rZb-la-qmK" secondAttribute="top" id="U3B-v5-iIo"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sef-aW-l4O">
+                                        <rect key="frame" x="0.0" y="227" width="320" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="didTapOKButton:" destination="w0w-h7-yV3" eventType="touchUpInside" id="88i-ah-8Dm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Ip0-Rb-YoE"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="prj-WN-2gg" firstAttribute="centerX" secondItem="Di6-1R-Kjd" secondAttribute="centerX" id="ajW-Kg-B0Q"/>
+                            <constraint firstItem="prj-WN-2gg" firstAttribute="centerY" secondItem="Di6-1R-Kjd" secondAttribute="centerY" id="s1f-h5-7gQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Di6-1R-Kjd"/>
+                    </view>
+                    <connections>
+                        <outlet property="coloringSegmentedControl" destination="uaO-Dk-xOq" id="RMB-Zy-8VY"/>
+                        <outlet property="numbersSegmentedControl" destination="8sz-5K-i89" id="PnW-hL-rGj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zx4-v2-M51" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="138"/>
         </scene>
     </scenes>
 </document>
