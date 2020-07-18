@@ -2,6 +2,10 @@
 
 Sample implementation for one hundred thousand particles simulated and drawn by Metal.
 
+## Performance - drawing 100,000 particles
+
+<kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
+
 ## Screenshots
 
 1,000 particles | 10,000 particles | 100,000 particles 
