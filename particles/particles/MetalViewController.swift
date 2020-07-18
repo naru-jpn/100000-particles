@@ -34,6 +34,10 @@ final class MetalViewController: UIViewController, RendererDelegate, SettingsVie
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("Failed to get device from MTLCreateSystemDefaultDevice().")
         }
+        guard device.supportsFamily(.apple5) else {
+            fatalError("This project can  be executed on only device supports GPU Family 5.")
+        }
+
         metalView.isPaused = true
         metalView.device = device
 
