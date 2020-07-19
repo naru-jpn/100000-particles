@@ -4,7 +4,7 @@
 
 Sample implementation for one hundred thousand particles simulated and drawn by Metal.
 
-## Performance - drawing 100,000 particles
+## Performance - drawing 100,000 particles (iPhone11Pro)
 
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
 
