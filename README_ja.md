@@ -2,7 +2,7 @@
 
 10万個のパーティクルを Metal を使って計算・描画をするサンプル実装.
 
-## パフォーマンス - 10万個のパーティクルの描画中(iPhone11pro)
+## パフォーマンス - 10万個のパーティクルの描画中 (iPhone11Pro)
 
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
 
