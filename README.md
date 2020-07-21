@@ -1,8 +1,12 @@
+[日本語](./README_ja.md)
+
 # 100,000 Particles
 
-Sample implementation for one hundred thousand particles calculated and drawn by Metal.
+Sample implementation for one hundred thousand particles simulated and drawn by Metal.
 
-<kbd><img src="https://user-images.githubusercontent.com/5572875/87853518-a9fbcf80-c945-11ea-89de-f3de0f126b7f.gif" width="200"></kbd>
+## Performance - drawing 100,000 particles (iPhone11Pro)
+
+<kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
 
 ## Screenshots
 
