@@ -2,6 +2,8 @@
 
 10万個のパーティクルを Metal を使って計算・描画をするサンプル実装.
 
+[Qiita - Metal を使って10万個のパーティクルを描画しよう](https://qiita.com/naru-jpn/items/9f4f1624495f3e72d6f9)
+
 ## パフォーマンス - 10万個のパーティクルの描画中 (iPhone11Pro)
 
 <kbd><img src="https://user-images.githubusercontent.com/5572875/87855867-20083280-c956-11ea-9fbd-509332ef0a55.png" width="700"></kbd>
